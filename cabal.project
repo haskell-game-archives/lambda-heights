@@ -4,4 +4,4 @@ index-state: 2020-12-31T09:47:37Z
 source-repository-package
   type:     git
   location: https://github.com/haskell-game-archives/compose-engine
-  tag:      6f680f8300dc4386345aaea39400567617a08284
+  tag:      8ae7ad5a847fd0917720b35bfd29f0f542cc9ccd

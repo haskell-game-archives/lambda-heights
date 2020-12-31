@@ -2,4 +2,4 @@ resolver: lts-14.27 # ghc-8.6.5
 
 extra-deps:
 - git: https://github.com/haskell-game-archives/compose-engine
-  commit: 6f680f8300dc4386345aaea39400567617a08284
+  commit: 8ae7ad5a847fd0917720b35bfd29f0f542cc9ccd
