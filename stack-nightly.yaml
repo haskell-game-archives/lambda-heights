@@ -1,0 +1,5 @@
+resolver: nightly-2020-12-14 # ghc-8.10.2
+
+extra-deps:
+- git: https://github.com/haskell-game-archives/compose-engine
+  commit: 8ae7ad5a847fd0917720b35bfd29f0f542cc9ccd

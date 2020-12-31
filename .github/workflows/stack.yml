@@ -3,7 +3,7 @@ name: stack
 on:
   push:
     branches:
-      - '*'
+      - master
   pull_request:
     branches:
       - '*'
@@ -12,39 +12,55 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    name: ${{ matrix.os }} (${{ matrix.resolver }})
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        ghc: ["8.6.5"]
-        cabal: ["3.0"]
+        os: [ubuntu-18.04, macos-10.15]
+        resolver: ["lts-14", "lts-16", "nightly"]
+        cache-version: ["2020-12-31"]
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-haskell@v1
+    - uses: haskell/actions/setup@v1
       with:
-        ghc-version: ${{ matrix.ghc }}
-        cabal-version: ${{ matrix.cabal }}
+        ghc-version: "8.8.4"
+        stack-version: "2.5.1"
+        enable-stack: true
 
-    - name: Display stack version & PATH env
-      run: |
-        stack --version
-        echo ${PATH}
-
-    - name: Cache ~/.stack
-      uses: actions/cache@v1.1.2
-      with:
-        path: ~/.stack
-        key: v1-stack
-
-    - name: Install libralies
+    - name: Install libralies (linux)
+      if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev
+        sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev libsdl2-gfx-dev
+    
+    - name: Install libralies (mac)
+      if: runner.os == 'macOS'
+      run: |
+        brew update
+        brew install sdl2 pkg-config sdl2_gfx sdl2_ttf
+
+    # See: https://github.com/actions/cache/issues/445
+    - name: Install GNU tar
+      if: runner.os == 'macOS'
+      run: |
+        brew install gnu-tar
+        echo "/usr/local/opt/gnu-tar/libexec/gnubin" >> $GITHUB_PATH
+
+    - name: Cache ~/.stack
+      uses: actions/cache@v2
+      with:
+        path: ~/.stack
+        key: ${{ runner.os }}-${{ matrix.resolver }}-${{ matrix.cache-version }}-stack
 
     - name: Install dependencies
-      run: stack test --only-dependencies --system-ghc
+      env:
+        STACK_YAML: stack-${{ matrix.resolver }}.yaml
+      run: stack test --only-dependencies
 
     - name: Build
+      env:
+        STACK_YAML: stack-${{ matrix.resolver }}.yaml
       run: |
-        stack build --fast --system-ghc
-        stack install --fast --system-ghc
+        stack test --fast
+        stack install --fast

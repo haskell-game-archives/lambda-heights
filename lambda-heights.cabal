@@ -1,0 +1,108 @@
+cabal-version: 2.4
+name:          lambda-heights
+version:       1.2.0
+description:
+  Please see the README on GitHub at <https://github.com/morgenthum/lambda-heights#readme>
+
+homepage:      https://github.com/morgenthum/lambda-heights#readme
+bug-reports:   https://github.com/morgenthum/lambda-heights/issues
+author:        Mario Morgenthum
+maintainer:    mario.morgenthum@gmail.com
+copyright:     2019 Mario Morgenthum
+license:       BSD-3-Clause
+build-type:    Simple
+tested-with:   GHC ==8.6.5 || ==8.8.4 || ==8.10.3
+data-dir:      fonts
+data-files:    *.ttf
+
+source-repository head
+  type:     git
+  location: https://github.com/morgenthum/lambda-heights
+
+common common
+  build-depends:
+    , base      >=4.12  && <4.15
+    , sdl2      >=2.4   && <2.6
+    , sdl2-ttf  >=2.1.0
+
+  ghc-options:      -Wall
+  default-language: Haskell2010
+
+library
+  import:          common
+  hs-source-dirs:  src
+  build-depends:
+    , async           ^>=2.2
+    , bytestring      >=0.10 && <0.12
+    , compose-engine
+    , directory       ^>=1.3
+    , extra           >=1.6  && <1.8
+    , linear          >=1.20 && <1.22
+    , matrix          ^>=0.3
+    , mtl             ^>=2.2
+    , sdl2-gfx        ^>=0.2
+    , serialise       ^>=0.2
+    , split           ^>=0.2
+    , stm             ^>=2.5
+    , text            ^>=1.2
+    , time            >=1.8  && <1.12
+    , vector          ^>=0.12
+    , yaml            ^>=0.11
+
+  -- cabal-fmt: expand src
+  exposed-modules:
+    LambdaHeights.Game
+    LambdaHeights.MainMenu
+    LambdaHeights.Menu
+    LambdaHeights.Pause
+    LambdaHeights.Play
+    LambdaHeights.Play.Input
+    LambdaHeights.Play.Output
+    LambdaHeights.Play.Pattern
+    LambdaHeights.Play.Render
+    LambdaHeights.Play.Update
+    LambdaHeights.Render
+    LambdaHeights.Replay
+    LambdaHeights.ReplayMenu
+    LambdaHeights.Scale
+    LambdaHeights.Score
+    LambdaHeights.Serialize
+    LambdaHeights.Table
+    LambdaHeights.Types.Config
+    LambdaHeights.Types.Events
+    LambdaHeights.Types.GameState
+    LambdaHeights.Types.Layer
+    LambdaHeights.Types.MainMenuState
+    LambdaHeights.Types.PauseState
+    LambdaHeights.Types.Player
+    LambdaHeights.Types.PlayState
+    LambdaHeights.Types.ReplayMenuState
+    LambdaHeights.Types.ReplayState
+    LambdaHeights.Types.Score
+    LambdaHeights.Types.ScoreState
+    LambdaHeights.Types.Screen
+    LambdaHeights.Types.Table
+    LambdaHeights.Types.Widgets
+    LambdaHeights.Update
+    LambdaHeights.Vectors
+    LambdaHeights.Version
+    Linear.V2.Utils
+
+  other-modules:   Paths_lambda_heights
+
+executable lambda-heights-app
+  import:        common
+  main-is:       app/Main.hs
+  build-depends:
+    , file-embed      >=0.0.11 && <0.0.14
+    , lambda-heights
+
+  other-modules: Paths_lambda_heights
+  ghc-options:   -O2
+
+executable lambda-heights-app-win
+  import:        common
+  main-is:       app-win/Main.hs
+  build-depends: lambda-heights
+  other-modules: Paths_lambda_heights
+  ghc-options:   -O2

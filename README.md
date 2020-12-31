@@ -1,6 +1,9 @@
 # Lambda-Heights
 
-![](https://github.com/morgenthum/lambda-heights/workflows/stack/badge.svg)
+[![cabal](https://github.com/haskell-game-archives/lambda-heights/workflows/cabal/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Acabal)
+[![stack](https://github.com/haskell-game-archives/lambda-heights/workflows/stack/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Astack)
+[![lint](https://github.com/haskell-game-archives/lambda-heights/workflows/lint/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Alint)
+[![format](https://github.com/haskell-game-archives/lambda-heights/workflows/format/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Aformat)
 
 ## Description
 

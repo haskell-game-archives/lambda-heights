@@ -1,3 +1,3 @@
-find lambda-heights/src -name '*.hs' | xargs ormolu --mode inplace
-find lambda-heights-app/src -name '*.hs' | xargs ormolu --mode inplace
-find lambda-heights-app-win/src -name '*.hs' | xargs ormolu --mode inplace
+find src -name '*.hs' | xargs ormolu --mode inplace
+find app -name '*.hs' | xargs ormolu --mode inplace
+find app-win -name '*.hs' | xargs ormolu --mode inplace
