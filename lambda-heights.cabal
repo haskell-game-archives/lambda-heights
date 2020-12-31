@@ -101,6 +101,5 @@ executable lambda-heights-app-win
   import:        common
   main-is:       app-win/Main.hs
   build-depends: lambda-heights
-  
   other-modules: Paths_lambda_heights
   ghc-options:   -O2
