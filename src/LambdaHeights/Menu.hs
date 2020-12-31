@@ -23,7 +23,7 @@ data RenderConfig = RenderConfig
   }
 
 createConfig :: ConfigReader RenderConfig
-createConfig = asks (RenderConfig . menuFont) <*> M.asks metaFont
+createConfig = M.asks (RenderConfig . menuFont) <*> M.asks metaFont
 
 keyInput :: (M.MonadIO m) => m [SDL.Event]
 keyInput = SDL.pollEvents
