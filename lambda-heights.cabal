@@ -12,6 +12,8 @@ copyright:     2019 Mario Morgenthum
 license:       BSD-3-Clause
 build-type:    Simple
 tested-with:   GHC ==8.6.5 || ==8.8.4 || ==8.10.3
+data-dir:      fonts
+data-files:    *.ttf
 
 source-repository head
   type:     git

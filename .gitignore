@@ -4,5 +4,4 @@ replays/**
 .DS_Store
 **/.stack-work/**
 **.iml
-**.lock
 dist-new*
