@@ -15,7 +15,7 @@ main = do
   Game.destroy
 
 highSchoolUSASansFont :: Int -> IO SDLF.Font
-highSchoolUSASansFont = SDLF.decode $(embedFile "../fonts/HighSchoolUSASans.ttf")
+highSchoolUSASansFont = SDLF.decode $(embedFile "fonts/HighSchoolUSASans.ttf")
 
 retroGamingFont :: Int -> IO SDLF.Font
-retroGamingFont = SDLF.decode $(embedFile "../fonts/retro_gaming.ttf")
+retroGamingFont = SDLF.decode $(embedFile "fonts/retro_gaming.ttf")

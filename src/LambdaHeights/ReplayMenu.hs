@@ -22,7 +22,7 @@ import qualified SDL
 import System.Directory
 
 createConfig :: ConfigReader Menu.RenderConfig
-createConfig = Menu.RenderConfig <$> M.asks metaFont <*> M.asks metaFont
+createConfig = asks (Menu.RenderConfig . metaFont) <*> M.asks metaFont
 
 loadReplayFiles :: (M.MonadIO m) => m [Replay.Description]
 loadReplayFiles = do

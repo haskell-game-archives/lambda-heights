@@ -94,7 +94,7 @@ executable lambda-heights-app
     , file-embed      >=0.0.11 && <0.0.14
     , lambda-heights
 
-  other-modules: Paths_lambda_heights_app
+  other-modules: Paths_lambda_heights
   ghc-options:   -O2
 
 executable lambda-heights-app-win
@@ -102,5 +102,5 @@ executable lambda-heights-app-win
   main-is:       app-win/Main.hs
   build-depends: lambda-heights
   
-  other-modules: Paths_lambda_heights_app_win
+  other-modules: Paths_lambda_heights
   ghc-options:   -O2

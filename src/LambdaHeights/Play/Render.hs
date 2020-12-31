@@ -182,7 +182,7 @@ flipByVel :: WorldVel -> Shape -> Shape
 flipByVel (WV (V2 velX _)) shape = if velX >= 0 then shape else flipShape shape
 
 flipShape :: Shape -> Shape
-flipShape (Shape xs ys) = let WS (V2 w _) = shapeSize (Shape xs ys) in Shape (map (\x -> w - x) xs) ys
+flipShape (Shape xs ys) = let WS (V2 w _) = shapeSize (Shape xs ys) in Shape (map (w -) xs) ys
 
 centerBottom :: WorldPos -> Shape -> Shape
 centerBottom (WP (V2 posX posY)) (Shape xs ys) =
