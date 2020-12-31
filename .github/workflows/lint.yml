@@ -20,4 +20,4 @@ jobs:
         HLINT_BIN_URL: "https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh"
       run: |
         curl -sL $HLINT_BIN_URL | sh -s -- --version
-        curl -sL $HLINT_BIN_URL | sh -s lambda-heights lambda-heights-app lambda-heights-app-win
+        curl -sL $HLINT_BIN_URL | sh -s app app-win src
