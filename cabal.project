@@ -1,8 +1,4 @@
-packages:
-  lambda-heights
-  -- lambda-heights-app
-  -- lambda-heights-app-win
-
+packages: .
 index-state: 2020-12-31T09:47:37Z
 
 source-repository-package

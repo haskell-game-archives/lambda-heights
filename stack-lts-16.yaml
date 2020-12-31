@@ -1,10 +1,5 @@
 resolver: lts-16.27 # ghc-8.8.4
 
-packages:
-- lambda-heights
-- lambda-heights-app
-- lambda-heights-app-win
-
 extra-deps:
 - git: https://github.com/haskell-game-archives/compose-engine
   commit: 6f680f8300dc4386345aaea39400567617a08284
