@@ -11,26 +11,23 @@ import qualified LambdaHeights.Types.PlayState as Play
 import LambdaHeights.Types.Score
 import LambdaHeights.Version
 
-data Result
-  = Result
-      { reason :: Play.ExitReason,
-        state :: State
-      }
+data Result = Result
+  { reason :: Play.ExitReason,
+    state :: State
+  }
 
-data State
-  = State
-      { playState :: Play.State,
-        events :: [[PlayerEvent]]
-      }
+data State = State
+  { playState :: Play.State,
+    events :: [[PlayerEvent]]
+  }
 
-data Description
-  = Description
-      { fileName :: String,
-        time :: LocalTime,
-        duration :: Word32,
-        score :: Score,
-        version :: Version
-      }
+data Description = Description
+  { fileName :: String,
+    time :: LocalTime,
+    duration :: Word32,
+    score :: Score,
+    version :: Version
+  }
   deriving (Eq, Generic)
 
 instance ToJSON Description

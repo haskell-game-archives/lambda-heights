@@ -59,10 +59,10 @@ ensureRows xs = xs
 
 updateSelection :: Table.UpdateTable
 updateSelection =
-  Table.with Table.convertKeycode
-    $ Table.applyKeycode
-    $ Table.limitNotFirstRow
-    $ Table.limitFirstColumn Table.limitAll
+  Table.with Table.convertKeycode $
+    Table.applyKeycode $
+      Table.limitNotFirstRow $
+        Table.limitFirstColumn Table.limitAll
 
 update :: Loop.Update ReplayMenu.State (Maybe String) [SDL.Event]
 update events = do

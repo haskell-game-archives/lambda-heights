@@ -1,5 +1,10 @@
 # Lambda-Heights
 
+[![cabal](https://github.com/haskell-game-archives/lambda-heights/workflows/cabal/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Acabal)
+[![stack](https://github.com/haskell-game-archives/lambda-heights/workflows/stack/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Astack)
+[![lint](https://github.com/haskell-game-archives/lambda-heights/workflows/lint/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Alint)
+[![format](https://github.com/haskell-game-archives/lambda-heights/workflows/format/badge.svg)](https://github.com/haskell-game-archives/lambda-heights/actions?query=workflow%3Aformat)
+
 ## Description
 
 Lambda-Heights is a fast paced game. You play a small lambda letter which can move and jump around. You need to jump onto layers to move upwards. Meanwhile the screen also moves upward - so you need to hold the velocity. If the bottom of the screen touches the player, the game is over.

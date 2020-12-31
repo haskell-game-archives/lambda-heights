@@ -27,27 +27,27 @@ import qualified SDL
 import qualified SDL.Font as SDLF
 import qualified SDL.Primitive as SDLP
 
-data RenderConfig
-  = RenderConfig
-      { font :: SDLF.Font,
-        headlineColor :: SDL.V4 Word8,
-        bgColor :: SDL.V4 Word8,
-        playerColor :: SDL.V4 Word8,
-        playerShadowColor :: SDL.V4 Word8,
-        textColor :: SDL.V4 Word8
-      }
+data RenderConfig = RenderConfig
+  { font :: SDLF.Font,
+    headlineColor :: SDL.V4 Word8,
+    bgColor :: SDL.V4 Word8,
+    playerColor :: SDL.V4 Word8,
+    playerShadowColor :: SDL.V4 Word8,
+    textColor :: SDL.V4 Word8
+  }
 
 createConfig :: ConfigReader RenderConfig
 createConfig = do
   loadedFont <- M.asks metaFont
-  return $ RenderConfig
-    { font = loadedFont,
-      headlineColor = SDL.V4 255 255 255 255,
-      bgColor = SDL.V4 30 30 30 255,
-      playerColor = SDL.V4 135 31 120 255,
-      playerShadowColor = SDL.V4 255 255 255 255,
-      textColor = SDL.V4 0 191 255 255
-    }
+  return $
+    RenderConfig
+      { font = loadedFont,
+        headlineColor = SDL.V4 255 255 255 255,
+        bgColor = SDL.V4 30 30 30 255,
+        playerColor = SDL.V4 135 31 120 255,
+        playerShadowColor = SDL.V4 255 255 255 255,
+        textColor = SDL.V4 0 191 255 255
+      }
 
 -- | Renders the state and executes an pre and post action.
 render :: (M.MonadIO m) => RenderContext -> RenderConfig -> Loop.Render m State.State

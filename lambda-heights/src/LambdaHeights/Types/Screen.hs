@@ -11,11 +11,10 @@ where
 
 import LambdaHeights.Vectors
 
-data Screen
-  = Screen
-      { pos :: ScreenPos,
-        size :: ScreenSize
-      }
+data Screen = Screen
+  { pos :: ScreenPos,
+    size :: ScreenSize
+  }
 
 newScreen :: Screen
 newScreen = Screen (SP (V2 0 0)) (SS (V2 1000 1000))

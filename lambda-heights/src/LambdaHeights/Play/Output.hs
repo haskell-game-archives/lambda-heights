@@ -40,10 +40,11 @@ writeDescription :: FilePath -> DescriptionGen -> DescriptionWriter
 writeDescription fileName descGen result = encodeFile (fileName ++ ".desc") $ toJSON (descGen result)
 
 createDescription :: LocalTime -> FilePath -> DescriptionGen
-createDescription time fileName result = Replay.Description
-  { Replay.fileName = fileName ++ ".dat",
-    Replay.time = time,
-    Replay.duration = State.duration $ State.state result,
-    Replay.score = Player.score $ State.player $ State.state result,
-    Replay.version = currentVersion
-  }
+createDescription time fileName result =
+  Replay.Description
+    { Replay.fileName = fileName ++ ".dat",
+      Replay.time = time,
+      Replay.duration = State.duration $ State.state result,
+      Replay.score = Player.score $ State.player $ State.state result,
+      Replay.version = currentVersion
+    }

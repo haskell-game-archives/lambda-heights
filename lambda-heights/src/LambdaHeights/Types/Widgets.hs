@@ -10,14 +10,13 @@ import qualified SDL.Font as SDLF
 
 type Color = V4 Word8
 
-data Button
-  = Button
-      { buttonText :: String,
-        buttonSelected :: Bool,
-        buttonPos :: ScreenPosF Int,
-        buttonSize :: ScreenSizeF Int,
-        buttonRender :: RenderContext -> Button -> IO ()
-      }
+data Button = Button
+  { buttonText :: String,
+    buttonSelected :: Bool,
+    buttonPos :: ScreenPosF Int,
+    buttonSize :: ScreenSizeF Int,
+    buttonRender :: RenderContext -> Button -> IO ()
+  }
 
 simpleButtonRenderer :: SDLF.Font -> (Color, Color) -> (Color, Color) -> RenderContext -> Button -> IO ()
 simpleButtonRenderer font (fg, bg) (sfg, sbg) (RC (_window, renderer)) button = do

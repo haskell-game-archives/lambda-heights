@@ -12,43 +12,38 @@ type Position = V2 Int
 
 type Size = V2 Int
 
-data Table
-  = Table
-      { content :: Matrix Cell,
-        selected :: Location
-      }
+data Table = Table
+  { content :: Matrix Cell,
+    selected :: Location
+  }
   deriving (Eq)
 
-data Cell
-  = Cell
-      { cellLocation :: Location,
-        cellText :: String
-      }
+data Cell = Cell
+  { cellLocation :: Location,
+    cellText :: String
+  }
   deriving (Eq)
 
-data TableViewport
-  = TableViewport
-      { viewportFrom :: Location,
-        viewportTo :: Location
-      }
+data TableViewport = TableViewport
+  { viewportFrom :: Location,
+    viewportTo :: Location
+  }
 
 type TableView = Matrix CellView
 
-data CellView
-  = CellView
-      { viewText :: String,
-        viewStyle :: CellStyle,
-        viewSize :: Size,
-        viewPos :: Position,
-        viewTextPos :: Position
-      }
+data CellView = CellView
+  { viewText :: String,
+    viewStyle :: CellStyle,
+    viewSize :: Size,
+    viewPos :: Position,
+    viewTextPos :: Position
+  }
 
-data CellStyle
-  = CellStyle
-      { cellFont :: SDLF.Font,
-        cellBg :: V4 Word8,
-        cellFg :: V4 Word8
-      }
+data CellStyle = CellStyle
+  { cellFont :: SDLF.Font,
+    cellBg :: V4 Word8,
+    cellFg :: V4 Word8
+  }
 
 newTable :: [[String]] -> Location -> Table
 newTable texts selected' =

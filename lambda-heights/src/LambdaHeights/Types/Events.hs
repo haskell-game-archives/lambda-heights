@@ -5,11 +5,10 @@ module LambdaHeights.Types.Events where
 import Codec.Serialise
 import GHC.Generics
 
-data Events
-  = Events
-      { control :: [ControlEvent],
-        player :: [PlayerEvent]
-      }
+data Events = Events
+  { control :: [ControlEvent],
+    player :: [PlayerEvent]
+  }
 
 data ControlEvent
   = Paused

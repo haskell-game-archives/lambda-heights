@@ -17,11 +17,10 @@ import qualified SDL.Font as SDLF
 
 type ToResult a = Maybe String -> a
 
-data RenderConfig
-  = RenderConfig
-      { font :: SDLF.Font,
-        versionFont :: SDLF.Font
-      }
+data RenderConfig = RenderConfig
+  { font :: SDLF.Font,
+    versionFont :: SDLF.Font
+  }
 
 createConfig :: ConfigReader RenderConfig
 createConfig = RenderConfig <$> M.asks menuFont <*> M.asks metaFont

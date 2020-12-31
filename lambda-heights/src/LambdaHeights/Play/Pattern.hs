@@ -11,13 +11,12 @@ where
 import LambdaHeights.Vectors
 
 -- | Represents a template for a layer.
-data PatternEntry
-  = PatternEntry
-      { entryId :: Int,
-        entrySize :: WorldSize,
-        -- | x = delta from left side, y = delta y from previous layer
-        entryPosition :: WorldPos
-      }
+data PatternEntry = PatternEntry
+  { entryId :: Int,
+    entrySize :: WorldSize,
+    -- | x = delta from left side, y = delta y from previous layer
+    entryPosition :: WorldPos
+  }
 
 -- | Generates entries with increasing ids from given Int.
 type PatternGenerator = Int -> [PatternEntry]

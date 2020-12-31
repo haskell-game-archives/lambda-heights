@@ -15,11 +15,12 @@ type Target m a = a -> m ()
 
 -- | Loops a serialization from a source to a target.
 serialize :: (Monad m, Serialise a) => Source m a -> Target m a -> m ()
-serialize source target = source >>= \case
-  Nothing -> return ()
-  Just x -> do
-    target $! x
-    serialize source target
+serialize source target =
+  source >>= \case
+    Nothing -> return ()
+    Just x -> do
+      target $! x
+      serialize source target
 
 -- | Reads atomically from a channel.
 fromTChan :: TChan (Maybe a) -> Source IO a

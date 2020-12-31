@@ -31,6 +31,7 @@ render (RC (window, renderer)) config = do
   state <- Loop.askRenderState
   view <- M.lift $ Table.newMenuView (Menu.font config) (MainMenu.menu state)
   M.lift $ Menu.render (RC (window, renderer)) config view
+
 --let colors = (SDL.V4 255 255 255 255, SDL.V4 255 0 0 255)
 --let buttonRenderer = simpleButtonRenderer (Menu.font config) colors colors
 --let button = Button "OK" False (SP (V2 100 100)) (SS (V2 250 75)) buttonRenderer

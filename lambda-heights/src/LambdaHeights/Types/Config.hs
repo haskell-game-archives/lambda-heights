@@ -5,8 +5,7 @@ import qualified SDL.Font as SDLF
 
 type ConfigReader = ReaderT Config IO
 
-data Config
-  = Config
-      { menuFont :: SDLF.Font,
-        metaFont :: SDLF.Font
-      }
+data Config = Config
+  { menuFont :: SDLF.Font,
+    metaFont :: SDLF.Font
+  }
