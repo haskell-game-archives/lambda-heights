@@ -23,8 +23,8 @@ keyEventProperties :: SDL.KeyboardEventData -> (SDL.Keycode, SDL.InputMotion, Bo
 keyEventProperties keyEvent =
   let code = SDL.keysymKeycode (SDL.keyboardEventKeysym keyEvent)
       motion = SDL.keyboardEventKeyMotion keyEvent
-      repeat = SDL.keyboardEventRepeat keyEvent
-   in (code, motion, repeat)
+      repeat' = SDL.keyboardEventRepeat keyEvent
+   in (code, motion, repeat')
 
 keyToControlEvent :: (SDL.Keycode, SDL.InputMotion, Bool) -> Maybe ControlEvent
 keyToControlEvent (SDL.KeycodeEscape, SDL.Pressed, False) = Just Paused

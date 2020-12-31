@@ -11,4 +11,8 @@ data State
       }
 
 newState :: Score -> State
-newState (Score score) = State {score = Score score, menu = newTable [["score: " ++ show score]] (V2 1 1)}
+newState (Score score') =
+  State {
+    score = Score score',
+    menu = newTable [["score: " ++ show score']] (V2 1 1)
+  }

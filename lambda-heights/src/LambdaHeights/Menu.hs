@@ -51,16 +51,16 @@ isPressedKeycode code event = case SDL.eventPayload event of
   _ -> False
 
 render :: (M.MonadIO m) => RenderContext -> RenderConfig -> Table.TableView -> m ()
-render (window, renderer) config view = do
+render (RC (window, renderer)) config view = do
   parentSize <- convert <$> SDL.get (SDL.windowSize window)
   let childSize = Table.tableSize view
   let pos = Table.positionCenter parentSize childSize
   let view' = Table.translate pos view
   Table.renderTable (Table.renderCell renderer) view'
-  renderVersion (window, renderer) config
+  renderVersion (RC (window, renderer)) config
 
 renderVersion :: (M.MonadIO m) => RenderContext -> RenderConfig -> m ()
-renderVersion (window, renderer) config = do
+renderVersion (RC (window, renderer)) config = do
   let version = "version " ++ show currentVersion
   V2 _ h <- SDL.get $ SDL.windowSize window
   (_, th) <- SDLF.size (versionFont config) (T.pack version)

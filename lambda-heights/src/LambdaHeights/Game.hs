@@ -85,8 +85,8 @@ startMenu ctx = do
   timer <- menuTimer
   config <- Menu.createConfig
   let render = Render.renderFrame ctx (V4 0 0 0 255) (MainMenu.render ctx config)
-  let loop = timedLoop Menu.keyInput MainMenu.update noOutput render
-  liftIO $ startLoop timer MainMenu.newState loop
+  let loop' = timedLoop Menu.keyInput MainMenu.update noOutput render
+  liftIO $ startLoop timer MainMenu.newState loop'
 
 startGame :: RenderContext -> ConfigReader Game.State
 startGame ctx = do
@@ -112,10 +112,10 @@ startGameLoop ::
   PlayLoopState IO ->
   Loop.Render IO Play.State ->
   ConfigReader Score
-startGameLoop ctx filePath channel state loop pauseRenderer = do
+startGameLoop ctx filePath channel state loop' pauseRenderer = do
   timer <- playTimer
   handle <- liftIO $ async $ serialize (fromTChan channel) (toFile $ filePath ++ ".dat")
-  result <- liftIO (startLoop timer state loop)
+  result <- liftIO (startLoop timer state loop')
   let state' = Play.state result
   let score = Play.score (Play.player state')
   liftIO (wait handle)
@@ -125,7 +125,7 @@ startGameLoop ctx filePath channel state loop pauseRenderer = do
       let pauseState = Pause.newState state'
       reason <- startPause ctx pauseState pauseRenderer
       case reason of
-        Pause.Resume -> startGameLoop ctx filePath channel state' loop pauseRenderer
+        Pause.Resume -> startGameLoop ctx filePath channel state' loop' pauseRenderer
         Pause.Exit -> return score
 
 startPause :: RenderContext -> Pause.State s -> Loop.Render IO s -> ConfigReader Pause.ExitReason
@@ -133,16 +133,16 @@ startPause ctx state proxyRenderer = do
   timer <- liftIO menuTimer
   pauseConfig <- Pause.createConfig
   let renderer = Render.renderFrame ctx (V4 0 0 0 255) (Pause.render ctx pauseConfig proxyRenderer)
-      loop = timedLoop Menu.keyInput Pause.update noOutput renderer
-  liftIO $ startLoop timer state loop
+      loop' = timedLoop Menu.keyInput Pause.update noOutput renderer
+  liftIO $ startLoop timer state loop'
 
 startScore :: RenderContext -> Score -> ConfigReader Game.State
 startScore ctx score = do
   timer <- liftIO menuTimer
   config <- Menu.createConfig
   let render = Render.renderFrame ctx (V4 0 0 0 255) (Score.render ctx config)
-      loop = timedLoop Menu.keyInput Score.update noOutput render
-  _ <- liftIO $ startLoop timer (Score.newState score) loop
+      loop' = timedLoop Menu.keyInput Score.update noOutput render
+  _ <- liftIO $ startLoop timer (Score.newState score) loop'
   return Game.Menu
 
 startScoreWithReplay :: RenderContext -> FilePath -> Score -> ConfigReader Game.State
@@ -160,10 +160,10 @@ startScoreWithReplayLoop ctx score events = do
       renderScore = Score.render ctx scoreConfig
       render = Render.renderFrame ctx (V4 30 30 30 255) (Render.renderBoth renderReplay renderScore)
       update = Update.updateOneFinished Replay.update Score.update
-      loop = timedLoop scoreWithReplayInput update noOutput render
+      loop' = timedLoop scoreWithReplayInput update noOutput render
       replayState = Replay.State Play.newState events
       scoreState = Score.newState score
-  (_, scoreResult) <- startLoop timer (replayState, scoreState) loop
+  (_, scoreResult) <- startLoop timer (replayState, scoreState) loop'
   case scoreResult of
     Nothing -> startScore ctx score
     Just _ -> return Game.Menu
@@ -180,8 +180,8 @@ startReplayMenu ctx = do
   config <- ReplayMenu.createConfig
   let state = ReplayMenu.newState table
       render = Render.renderFrame ctx (V4 0 0 0 255) (ReplayMenu.render ctx config)
-      loop = timedLoop Menu.keyInput ReplayMenu.update noOutput render
-  filePath <- liftIO (startLoop timer state loop)
+      loop' = timedLoop Menu.keyInput ReplayMenu.update noOutput render
+  filePath <- liftIO (startLoop timer state loop')
   maybe (return Game.Menu) (`startReplayFromFile` ctx) filePath
 
 startReplayFromFile :: FilePath -> RenderContext -> ConfigReader Game.State
@@ -193,10 +193,10 @@ startReplay :: [[Events.PlayerEvent]] -> RenderContext -> ConfigReader Game.Stat
 startReplay events ctx = do
   config <- Play.createConfig
   let renderReplay = Render.renderFrame ctx (V4 30 30 30 255) (Replay.render ctx config)
-      loop = timedLoop Replay.input Replay.update noOutput renderReplay
+      loop' = timedLoop Replay.input Replay.update noOutput renderReplay
       state = Replay.State Play.newState events
       renderPause = Play.render ctx config
-  startReplayLoop ctx state loop renderPause >>= startScore ctx
+  startReplayLoop ctx state loop' renderPause >>= startScore ctx
 
 startReplayLoop ::
   RenderContext ->
@@ -204,9 +204,9 @@ startReplayLoop ::
   ReplayLoopState IO ->
   Loop.Render IO Play.State ->
   ConfigReader Score
-startReplayLoop ctx state loop pauseRenderer = do
+startReplayLoop ctx state loop' pauseRenderer = do
   timer <- liftIO playTimer
-  result <- liftIO (startLoop timer state loop)
+  result <- liftIO (startLoop timer state loop')
   let state' = Replay.state result
   let score = Play.score $ Play.player (Replay.playState state')
   case Replay.reason result of
@@ -215,5 +215,5 @@ startReplayLoop ctx state loop pauseRenderer = do
       let pauseState = Pause.newState (Replay.playState state')
       reason <- startPause ctx pauseState pauseRenderer
       case reason of
-        Pause.Resume -> startReplayLoop ctx state' loop pauseRenderer
+        Pause.Resume -> startReplayLoop ctx state' loop' pauseRenderer
         Pause.Exit -> return score

@@ -14,7 +14,7 @@ import qualified SDL
 import qualified SDL.Font as SDLF
 
 renderFrame :: (M.MonadIO m) => RenderContext -> V4 Word8 -> Render m s -> Render m s
-renderFrame (_, renderer) color render = do
+renderFrame (RC (_, renderer)) color render = do
   timer <- askRenderTimer
   state <- askRenderState
   SDL.rendererDrawColor renderer SDL.$= color
@@ -41,7 +41,7 @@ renderText renderer font color position text = do
   SDL.destroyTexture texture
 
 renderOverlay :: (M.MonadIO m) => RenderContext -> V4 Word8 -> m ()
-renderOverlay (window, renderer) color = do
+renderOverlay (RC (window, renderer)) color = do
   windowSize <- SDL.get $ SDL.windowSize window
   SDL.rendererDrawColor renderer SDL.$= color
   SDL.fillRect renderer $ Just $ SDL.Rectangle (SDL.P $ V2 0 0) windowSize

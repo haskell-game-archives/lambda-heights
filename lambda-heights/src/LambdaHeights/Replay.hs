@@ -41,10 +41,10 @@ update events = do
       let (_, updated) = M.execState playUpdate playState
       case updated of
         Left playResult -> do
-          let state = Replay.State (Play.state playResult) repEventList
-          let result = Replay.Result (Play.reason playResult) state
+          let state' = Replay.State (Play.state playResult) repEventList
+          let result = Replay.Result (Play.reason playResult) state'
           Loop.putUpdateResult result
-        Right playState -> Loop.putUpdateState $ Replay.State playState repEventList
+        Right playState' -> Loop.putUpdateState $ Replay.State playState' repEventList
 
 updateSpeed :: [Events.ControlEvent] -> Loop.UpdateState Replay.State Replay.Result ()
 updateSpeed events = do

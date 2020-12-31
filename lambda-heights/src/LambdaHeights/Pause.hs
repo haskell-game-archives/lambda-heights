@@ -33,12 +33,12 @@ render ::
   RenderConfig ->
   Loop.Render m s ->
   Loop.Render m (Pause.State s)
-render (window, renderer) config pausedRenderer = do
+render (RC (window, renderer)) config pausedRenderer = do
   timer <- Loop.askRenderTimer
   state <- Loop.askRenderState
   M.lift $ M.runReaderT pausedRenderer (timer, Pause.pausedState state)
-  renderOverlay (window, renderer) (V4 0 0 0 100)
-  renderMenu (window, renderer) config state
+  renderOverlay (RC (window, renderer)) (V4 0 0 0 100)
+  renderMenu (RC (window, renderer)) config state
 
 renderMenu :: (M.MonadIO m) => RenderContext -> RenderConfig -> Pause.State s -> m ()
 renderMenu ctx config state = do

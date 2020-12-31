@@ -20,7 +20,7 @@ data Button
       }
 
 simpleButtonRenderer :: SDLF.Font -> (Color, Color) -> (Color, Color) -> RenderContext -> Button -> IO ()
-simpleButtonRenderer font (fg, bg) (sfg, sbg) (window, renderer) button = do
+simpleButtonRenderer font (fg, bg) (sfg, sbg) (RC (_window, renderer)) button = do
   if buttonSelected button
     then SDL.rendererDrawColor renderer SDL.$= sbg
     else SDL.rendererDrawColor renderer SDL.$= bg

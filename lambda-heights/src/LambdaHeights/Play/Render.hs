@@ -51,7 +51,7 @@ createConfig = do
 
 -- | Renders the state and executes an pre and post action.
 render :: (M.MonadIO m) => RenderContext -> RenderConfig -> Loop.Render m State.State
-render (window, renderer) config = do
+render (RC (window, renderer)) config = do
   state <- Loop.askRenderState
   windowSize <- SDL.get $ SDL.windowSize window
   mapM_ (renderLayer renderer windowSize $ State.screen state) $ State.layers state

@@ -51,10 +51,10 @@ data CellStyle
       }
 
 newTable :: [[String]] -> Location -> Table
-newTable texts selected =
+newTable texts selected' =
   let toCell (r, c) = Cell (V2 r c)
       cells = mapPos toCell $ fromLists texts
-   in Table cells selected
+   in Table cells selected'
 
 selectedValue :: Table -> Cell
 selectedValue t = let V2 r c = selected t in getElem r c $ content t

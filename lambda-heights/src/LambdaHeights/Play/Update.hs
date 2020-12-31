@@ -28,30 +28,30 @@ updateFactor = 1 / 128
 update :: Loop.Update State.State State.Result Events.Events
 update events = do
   timer <- Loop.getUpdateTimer
-  state <- Loop.getUpdateState
-  let time = State.duration state
-  let screen = State.screen state
-  let layers = State.layers state
-  let player = State.player state
-  let motion = updateMotion (Events.player events) $ State.motion state
-  let state' =
-        state
+  state' <- Loop.getUpdateState
+  let time = State.duration state'
+  let screen = State.screen state'
+  let layers = State.layers state'
+  let player = State.player state'
+  let motion = updateMotion (Events.player events) $ State.motion state'
+  let state'' =
+        state'
           { State.duration = time + Timer.rate timer,
             State.screen = updateScreen player screen,
             State.motion = resetMotion motion,
             State.player = updatePlayer screen motion layers player,
             State.layers = updateLayers screen layers
           }
-  put (timer, updatedResult events state')
+  put (timer, updatedResult events state'')
 
 updatedResult :: Events.Events -> State.State -> Either State.Result State.State
-updatedResult events state =
+updatedResult events state' =
   let paused = elem Events.Paused $ Events.control events
-      died = dead (State.screen state) (State.player state)
+      died = dead (State.screen state') (State.player state')
       go
-        | died = Left $ State.Result State.Finished state
-        | paused = Left $ State.Result State.Paused state
-        | otherwise = Right state
+        | died = Left $ State.Result State.Finished state'
+        | paused = Left $ State.Result State.Paused state'
+        | otherwise = Right state'
    in go
 
 -- Updating the screen involves two steps:
