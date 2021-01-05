@@ -2,11 +2,8 @@ name: format
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [master]
   pull_request:
-    branches:
-      - '*'
   schedule:
     - cron: "00 15 * * *"
 
@@ -21,7 +18,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        cache-version: ["2020-12-31"]
+        cache-version: ["2021-01-05"]
 
     steps:
     - uses: actions/checkout@v2

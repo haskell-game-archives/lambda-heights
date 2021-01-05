@@ -2,11 +2,8 @@ name: cabal
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [master]
   pull_request:
-    branches:
-      - '*'
   schedule:
     - cron: "00 15 * * *"
 
@@ -17,7 +14,7 @@ jobs:
       matrix:
         ghc: ["8.6", "8.8", "8.10"]
         cabal: ["3.2"]
-        cache-version: ["2020-12-31"]
+        cache-version: ["2021-01-05"]
 
     steps:
     - uses: actions/checkout@v2

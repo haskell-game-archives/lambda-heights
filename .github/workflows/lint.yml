@@ -2,11 +2,8 @@ name: lint
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [master]
   pull_request:
-    branches:
-      - '*'
   schedule:
     - cron: "00 15 * * *"
 
